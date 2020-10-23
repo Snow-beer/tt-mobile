@@ -139,6 +139,7 @@ export default {
       .name {
         font-size: 15px;
         color: #fff;
+        
       }
       .update-btn {
         height: 16px;
