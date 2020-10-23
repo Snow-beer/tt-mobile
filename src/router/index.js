@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from "@/views/home"
+
+
 
 
 Vue.use(VueRouter)
@@ -8,15 +9,35 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/login',
-    neme: Login,
+    name: 'login',
     component: () => import('@/views/login')
   },
   {
     path: '/',
-    name: Home,
-    component: Home
-}
-
+    component: () => import('@/views/layout'),
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import('@/views/home')
+      },
+      {
+        path: '/video',
+        name: 'video',
+        component: () => import('@/views/video')
+      },
+      {
+        path: '/qa',
+        name: 'aq',
+        component: () => import('@/views/qa')
+      },
+      {
+        path: '/my',
+        name: 'my',
+        component: () => import('@/views/my')
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({

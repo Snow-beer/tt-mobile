@@ -1,7 +1,6 @@
 <template>
-  <div>
-      video
-  </div>
+  
+  <div>111aq</div>
 </template>
 
 <script>
