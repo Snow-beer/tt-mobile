@@ -18,9 +18,9 @@
     <van-grid :gutter="10">
       <van-grid-item
         class="gtid-item"
-        v-for="value in 8"
-        :key="value"
-        text="文字"
+        v-for="value in recommendChannels"
+        :key="value.id"
+        :text="value.name"
       />
     </van-grid>
   </div>
@@ -41,7 +41,16 @@ export default {
       requried: true,
     },
   },
-  computed: {},
+  computed: {
+    // 推荐频道
+    recommendChannels(){
+      return this.allChannels.filter(channel =>{
+        return !this.channellist.find(userChannel =>{
+          return userChannel.id === channel.id
+        })
+      })
+    }
+  },
   created() {
     this.loadAllChannels();
   },
@@ -49,6 +58,7 @@ export default {
     async loadAllChannels() {
       try {
         const { data } = await getChannel();
+        this.allChannels = data.data.channels
         console.log(data)
       } catch (error) {
         console.log(error);
