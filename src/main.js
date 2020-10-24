@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import 'amfe-flexible'
 import Vant from 'vant';
+import './utils/dayjs'
 import 'vant/lib/index.css';
 import '@/styles/index.less'
 

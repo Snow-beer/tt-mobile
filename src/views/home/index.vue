@@ -14,26 +14,46 @@
     </van-nav-bar>
     <!-- /导航栏 -->
     <van-tabs v-model="active">
-      <van-tab 
-      :title="item.name" 
-      v-for="(item, index) in channels" 
-      :key="index">
-      <Articlelist :channel='item'></Articlelist>
+      <van-tab
+        :title="item.name"
+        v-for="(item, index) in channels"
+        :key="index"
+      >
+        <Articlelist :channel="item"></Articlelist>
       </van-tab>
+      <!-- 占位 -->
+      <div class="wap-nav-placehodle" slot="nav-right"></div>
+      <div slot="nav-right" @click="isShow=true" class="wapnav">
+        <van-icon name="wap-nav"  />
+      </div>
     </van-tabs>
+    <!-- 弹出层 -->
+    <van-popup
+      v-model="isShow"
+      closeable
+      get-container="body" 
+      close-icon-position="top-left"
+      position="bottom"
+      :style="{ height: '100%' }"
+    >
+    <!-- 我的频道展示 -->
+    <ChannelEdit :channellist='channels'></ChannelEdit>
+    </van-popup>
   </div>
 </template>
 
 <script>
-import Articlelist from './component/article-list'
+import Articlelist from "./component/article-list";
+import ChannelEdit from "./component/channel-edit";
 import { getUserChannels } from "@/api/user.js";
 export default {
   name: "HomeIndex",
-  components: {Articlelist},
+  components: { Articlelist, ChannelEdit },
   data() {
     return {
-      active: 2,
+      active: 0,
       channels: [],
+      isShow: true,
     };
   },
   created() {
@@ -67,6 +87,19 @@ export default {
         font-size: 14px;
       }
     }
+  }
+  .wap-nav-placehodle{
+    width: 33px;
+    flex-shrink: 0;
+  }
+  .wapnav{
+    position: fixed;
+    right: 0;
+    width: 33px;
+    height: 44px;
+    line-height: 44px;
+    background-color: #fff;
+    opacity: .8;
   }
 }
 </style>
