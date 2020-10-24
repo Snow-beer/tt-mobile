@@ -10,20 +10,28 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <van-cell
+        <!-- <van-cell
           v-for="(article, index) in articles"
           :key="index"
           :title="article.title"
-        />
+        /> -->
+        <ArticleItem
+         v-for="(article, index) in articles"
+         :article='article'
+          :key="index"
+          :title="article.title"
+        ></ArticleItem>
       </van-list>
     </van-pull-refresh>
   </div>
 </template>
 
 <script>
+import ArticleItem from '@/components/article-item'
 import { getArticeList } from "@/api/article";
 export default {
   name: "articleIndex",
+  components:{ArticleItem},
   data() {
     return {
       articles: [], //文章列表
