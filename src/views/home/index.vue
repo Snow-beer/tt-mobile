@@ -23,21 +23,25 @@
       </van-tab>
       <!-- 占位 -->
       <div class="wap-nav-placehodle" slot="nav-right"></div>
-      <div slot="nav-right" @click="isShow=true" class="wapnav">
-        <van-icon name="wap-nav"  />
+      <div slot="nav-right" @click="isShow = true" class="wapnav">
+        <van-icon name="wap-nav" />
       </div>
     </van-tabs>
     <!-- 弹出层 -->
     <van-popup
       v-model="isShow"
       closeable
-      get-container="body" 
+      get-container="body"
       close-icon-position="top-left"
       position="bottom"
       :style="{ height: '100%' }"
     >
-    <!-- 我的频道展示 -->
-    <ChannelEdit :channellist='channels'></ChannelEdit>
+      <!-- 我的频道展示 -->
+      <ChannelEdit
+        :channellist="channels"
+        @close="isShow = false"
+        @update-active="onUpdateActive"
+      ></ChannelEdit>
     </van-popup>
   </div>
 </template>
@@ -46,6 +50,8 @@
 import Articlelist from "./component/article-list";
 import ChannelEdit from "./component/channel-edit";
 import { getUserChannels } from "@/api/user.js";
+import { mapState } from "vuex";
+import { getItem } from "@/utils/storage";
 export default {
   name: "HomeIndex",
   components: { Articlelist, ChannelEdit },
@@ -56,13 +62,32 @@ export default {
       isShow: true,
     };
   },
+  computed: {
+    ...mapState(["user"]),
+  },
   created() {
     this.loadChannels();
   },
   methods: {
     async loadChannels() {
-      const { data } = await getUserChannels();
-      this.channels = data.data.channels;
+      let channels = [];
+      if (this.user) {
+        const { data } = await getUserChannels();
+        channels = data.data.channels;
+      }else{
+        const localChannels = getItem('user-channels')
+        if(localChannels){
+          channels = localChannels
+        }else{
+          const { data } = await getUserChannels();
+        channels = data.data.channels;
+        }
+      }
+
+      this.channels = channels
+    },
+    onUpdateActive(index) {
+      this.active = index;
     },
   },
 };
@@ -88,18 +113,18 @@ export default {
       }
     }
   }
-  .wap-nav-placehodle{
+  .wap-nav-placehodle {
     width: 33px;
     flex-shrink: 0;
   }
-  .wapnav{
+  .wapnav {
     position: fixed;
     right: 0;
     width: 33px;
     height: 44px;
     line-height: 44px;
     background-color: #fff;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 </style>
