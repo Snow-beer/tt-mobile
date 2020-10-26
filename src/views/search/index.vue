@@ -10,9 +10,9 @@
         @focus="isResultShow = false"
       />
     </form>
-    <SearchResult v-if="isResultShow"></SearchResult>
+    <SearchResult v-if="isResultShow" :searchText='searchText'></SearchResult>
     <!-- 联想建议 -->
-    <SearchSuggestion v-else-if="searchText"></SearchSuggestion>
+    <SearchSuggestion v-else-if="searchText" :searchText='searchText'></SearchSuggestion>
     <SearchHistory v-else></SearchHistory>
   </div>
 </template>
