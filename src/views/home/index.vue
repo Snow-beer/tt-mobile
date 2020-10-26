@@ -9,6 +9,7 @@
         type="info"
         round
         size="small"
+        to="search"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -59,7 +60,7 @@ export default {
     return {
       active: 0,
       channels: [],
-      isShow: true,
+      isShow: false,
     };
   },
   computed: {
