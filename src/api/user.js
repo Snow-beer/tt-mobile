@@ -29,3 +29,19 @@ export const getUserChannels = () =>{
         method: 'GET'
     })
 }
+// 获取用户个人资料
+export const getUserProfile = () =>{
+    return request({
+        url: '/app/v1_0/user/profile',
+        method: 'GET',
+
+    })
+}
+// 修改用户资料
+export const updateUser = (data) =>{
+    return request({
+        url: '/app/v1_0/user/profile',
+        method: 'PATCH',
+        data
+    })
+}

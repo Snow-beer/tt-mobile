@@ -10,7 +10,10 @@
           :src="userinfo.photo"
         />
         <div class="name" slot="title">{{ userinfo.name }}</div>
-        <van-button class="update-btn" size="small" round>编辑资料</van-button>
+        <van-button class="update-btn" 
+        size="small" 
+        to="/userprofile"
+        round>编辑资料</van-button>
       </van-cell>
       <van-grid class="data-info" :border="false">
         <van-grid-item class="data-info-item">
