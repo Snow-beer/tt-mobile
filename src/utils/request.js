@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 
 export const request = axios.create({
-    baseURL: 'http://ttapi.research..cn'
+    baseURL: 'http://112.74.99.5:3000'
     
 })
 
